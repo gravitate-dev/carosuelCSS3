@@ -1,0 +1,185 @@
+<html>
+<head>
+<title>Expanding Carosuel</title>
+   <style media="screen">
+
+    .container {
+      width: 210px;
+      height: 140px;
+      position: relative;
+      margin: 0 auto 40px;
+      -webkit-perspective: 1100px;
+         -moz-perspective: 1100px;
+           -o-perspective: 1100px;
+              perspective: 1100px;
+    }
+
+
+    #carousel {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      -webkit-transform-style: preserve-3d;
+         -moz-transform-style: preserve-3d;
+           -o-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+    }
+
+    .ready #carousel {
+      -webkit-transition: -webkit-transform 1s;
+         -moz-transition: -moz-transform 1s;
+           -o-transition: -o-transform 1s;
+              transition: transform 1s;
+    }
+
+    #carousel.panels-backface-invisible figure {
+      -webkit-backface-visibility: hidden;
+         -moz-backface-visibility: hidden;
+           -o-backface-visibility: hidden;
+              backface-visibility: hidden;
+    }
+
+    #carousel figure {
+      display: block;
+      position: absolute;
+      width: 186px;
+      height: 116px;
+      left: 10px;
+      top: 10px;
+      border: 2px solid black;
+      line-height: 116px;
+      font-size: 80px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+    }
+
+    .ready #carousel figure {
+      -webkit-transition: opacity 1s, -webkit-transform 1s;
+         -moz-transition: opacity 1s, -moz-transform 1s;
+           -o-transition: opacity 1s, -o-transform 1s;
+              transition: opacity 1s, transform 1s;
+    }
+	
+	#carousel figure {
+	transition-duration: 1s;
+-moz-transition-duration: 1s; /* Firefox 4 */
+-webkit-transition-duration: 1s; /* Safari and Chrome */
+-o-transition-duration: 1s; /* Opera */
+
+transition-timing-function: linear;
+-moz-transition-timing-function: linear; /* Firefox 4 */
+-webkit-transition-timing-function: linear; /* Safari and Chrome */
+-o-transition-timing-function: linear; /* Opera */
+	}
+	#carousel figure:nth-child(1) {
+      -webkit-transform: rotateY(   0deg ) translateZ( 288px );
+         -moz-transform: rotateY(   0deg ) translateZ( 288px );
+           -o-transform: rotateY(   0deg ) translateZ( 288px );
+              transform: rotateY(   0deg ) translateZ( 288px );
+    }
+    #carousel figure:nth-child(2) {
+      -webkit-transform: rotateY(  40deg ) translateZ( 288px );
+         -moz-transform: rotateY(  80deg ) translateZ( 288px );
+           -o-transform: rotateY(  40deg ) translateZ( 288px );
+              transform: rotateY(  40deg ) translateZ( 288px );
+    }
+	#carousel figure:nth-child(3) {
+      -webkit-transform: rotateY(  80deg ) translateZ( 288px );
+         -moz-transform: rotateY(  80deg ) translateZ( 288px );
+           -o-transform: rotateY(  80deg ) translateZ( 288px );
+              transform: rotateY(  80deg ) translateZ( 288px );
+    }
+    #carousel figure:nth-child(4) {
+      -webkit-transform: rotateY( 120deg ) translateZ( 288px );
+         -moz-transform: rotateY( 120deg ) translateZ( 288px );
+           -o-transform: rotateY( 120deg ) translateZ( 288px );
+              transform: rotateY( 120deg ) translateZ( 288px );
+    }
+    #carousel figure:nth-child(5) {
+      -webkit-transform: rotateY( 160deg ) translateZ( 288px );
+         -moz-transform: rotateY( 160deg ) translateZ( 288px );
+           -o-transform: rotateY( 160deg ) translateZ( 288px );
+              transform: rotateY( 160deg ) translateZ( 288px );
+    }
+    #carousel figure:nth-child(6) {
+      -webkit-transform: rotateY( 200deg ) translateZ( 288px );
+         -moz-transform: rotateY( 200deg ) translateZ( 288px );
+           -o-transform: rotateY( 200deg ) translateZ( 288px );
+              transform: rotateY( 200deg ) translateZ( 288px );
+    }
+    #carousel figure:nth-child(7) {
+      -webkit-transform: rotateY( 240deg ) translateZ( 288px );
+         -moz-transform: rotateY( 240deg ) translateZ( 288px );
+           -o-transform: rotateY( 240deg ) translateZ( 288px );
+              transform: rotateY( 240deg ) translateZ( 288px );
+    }
+    #carousel figure:nth-child(8) {
+      -webkit-transform: rotateY( 280deg ) translateZ( 288px );
+         -moz-transform: rotateY( 280deg ) translateZ( 288px );
+           -o-transform: rotateY( 280deg ) translateZ( 288px );
+              transform: rotateY( 280deg ) translateZ( 288px );
+    }
+    #carousel figure:nth-child(9) {
+      -webkit-transform: rotateY( 320deg ) translateZ( 288px );
+         -moz-transform: rotateY( 320deg ) translateZ( 288px );
+           -o-transform: rotateY( 320deg ) translateZ( 288px );
+              transform: rotateY( 320deg ) translateZ( 288px );
+    }
+
+  </style>
+  <script src="modernizr.js"></script>
+	<script type="text/javascript">
+		var figures;
+		var transformProp = Modernizr.prefixed('transform');
+		function init()
+		{
+			figures = new panel(document.getElementById("carousel"));
+			figures.oninit();
+			setInterval(function(){ figures.dazzle((figures.distance+100)%400);},1500);
+		}
+		
+		function panel( el )
+		{
+			this.element = el;
+			this.total_panels = this.element.children.length;
+			this.distance = 288;
+		
+		}
+		
+		panel.prototype.oninit = function()
+		{
+		this.dazzle(288);
+		}
+		
+		panel.prototype.dazzle = function( trans_distance )
+		{
+		this.distance = trans_distance;
+		//have to do for all the elements
+		for ( i = 0; i < this.total_panels; i++ ) {
+        the_panel = this.element.children[i];
+        angle = (360/this.total_panels) * i;
+        the_panel.style.opacity = 1;
+        the_panel.style.backgroundColor = 'hsla(' + angle + ', 100%, 50%, 0.8)';
+        // rotate panel, then push it out in 3D space
+        the_panel.style[ transformProp ] = 'rotateY(' + angle + 'deg) translateZ('+trans_distance+'px)';
+		}
+		}
+	</script>
+</head>
+<body onload="init()">
+<div class="container">
+  <div id="carousel">
+    <figure>1</figure>
+    <figure>2</figure>
+    <figure>3</figure>
+    <figure>4</figure>
+    <figure>5</figure>
+    <figure>6</figure>
+    <figure>7</figure>
+    <figure>8</figure>
+    <figure>9</figure>
+  </div>
+</div>
+</body>
+</html>
